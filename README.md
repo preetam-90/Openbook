@@ -1,61 +1,91 @@
-# The Forgotten Centuries: Bihar's History (1500-2026)
+# OpenBook: Bihar History 1500-2026
 
-An interactive digital book showcasing 500 years of Bihar's rich history with a modern, claymorphism-based UI and smooth animations.
+An interactive digital book platform showcasing the complete history of Bihar from 1500 to 2026. Built with modern web technologies and designed with claymorphism aesthetic for an engaging reading experience.
 
 ## 📚 Project Overview
 
 This is a comprehensive historical work by Preetam Kumar Singh exploring Bihar's transformation from 1500 to the present day, presented as an interactive web application with:
 
-- **Beautiful Claymorphism Design**: Modern UI with glass morphism effects and smooth animations
-- **Dark Mode Support**: Automatic theme detection with manual toggle
-- **Responsive Layout**: Mobile-first design that works on all devices
-- **Smooth Navigation**: Intuitive chapter navigation with smooth page transitions
-- **Markdown Content**: All chapters rendered from markdown files with proper formatting
+- **Beautiful Claymorphism Design**: Soft shadows, rounded corners, and warm color palette
+- **Interactive Chapter Reader**: Flipbook animations with smooth page transitions
+- **Dark/Light Mode**: Automatic theme detection with manual toggle
+- **Search Functionality**: Full-text search across all chapters
+- **Bookmarking System**: Save favorite chapters for quick access
+- **Progress Tracking**: Visual progress indicator for reading completion
+- **Responsive Design**: Mobile-first design optimized for all devices
+- **Historical Images**: Embedded illustrations throughout chapters
 
 ## 🚀 Quick Start
 
+### Prerequisites
+- Node.js 18+ (tested with 20+)
+- pnpm (recommended) or npm
+
 ### Installation
 
-1. Clone the repository:
+1. **Navigate to project directory**:
 ```bash
-git clone https://github.com/preetam-90/Openbook.git
-cd Openbook
+cd /vercel/share/v0-project
 ```
 
-2. Install dependencies using pnpm:
+2. **Install dependencies**:
 ```bash
 pnpm install
+# or
+npm install
 ```
 
-3. Run the development server:
+3. **Run the development server**:
 ```bash
 pnpm dev
+# or
+npm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+4. **Open in browser**:
+Navigate to `http://localhost:3000`
+
+### Build for Production
+
+```bash
+pnpm build
+pnpm start
+```
 
 ## 📁 Project Structure
 
 ```
-/vercel/share/v0-project
 ├── app/
-│   ├── layout.tsx          # Root layout with theme provider
-│   ├── page.tsx            # Homepage with hero section and TOC
-│   ├── globals.css         # Global styles with claymorphism effects
-│   └── read/
-│       ├── layout.tsx      # Chapter reader layout
-│       └── [slug]/
-│           └── page.tsx    # Dynamic chapter page component
+│   ├── page.tsx                 # Homepage with chapter grid
+│   ├── chapter/
+│   │   └── [id]/page.tsx       # Chapter reader page
+│   ├── search/
+│   │   └── page.tsx            # Search results page
+│   ├── api/
+│   │   ├── chapters/route.ts   # Get all chapters
+│   │   ├── chapter/[id]/route.ts # Get single chapter
+│   │   └── search/route.ts     # Search chapters
+│   ├── globals.css             # Global styles and clay classes
+│   ├── prose.css               # Markdown content styles
+│   └── layout.tsx              # Root layout with theme provider
 ├── components/
-│   ├── theme-provider.tsx  # Next-themes provider
-│   └── theme-toggle.tsx    # Theme switcher button
+│   ├── theme-toggle.tsx        # Dark/light mode switcher
+│   ├── theme-provider.tsx      # Next-themes provider
+│   └── progress-bar.tsx        # Reading progress indicator
+├── hooks/
+│   ├── use-book.ts            # Book data fetching hook
+│   └── use-progress.ts        # Progress and bookmarks hook
 ├── lib/
-│   ├── get-chapters.ts     # Chapter metadata and loader
-│   └── cn.ts               # Utility for conditional classnames
-├── tailwind.config.ts      # Tailwind CSS configuration
-├── package.json            # Dependencies and scripts
-└── *.md                    # Markdown chapter files
-
+│   ├── markdown.ts            # Markdown parsing utilities
+│   └── image-mapper.ts        # Chapter-to-image mapping
+├── public/
+│   ├── bihar-history-01.jpg
+│   ├── sher-shah.jpg
+│   ├── kunwar-singh.jpg
+│   └── champaran.jpg
+├── tailwind.config.ts         # Tailwind CSS configuration
+├── package.json               # Dependencies and scripts
+└── *.md                       # Markdown chapter files
 ```
 
 ## 📖 Chapters

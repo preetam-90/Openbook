@@ -12,18 +12,18 @@ export function ThemeToggle() {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null;
+  if (!mounted) return <div className="w-10 h-10" />;
 
   return (
     <button
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className="claymorphic-soft p-2 rounded-full hover:shadow-lg transition-all duration-300"
+      className="clay-card !p-3 transition-all hover:shadow-lg"
       aria-label="Toggle theme"
     >
       {theme === 'dark' ? (
-        <Sun size={20} className="text-yellow-500" />
+        <Sun className="w-5 h-5 text-primary" />
       ) : (
-        <Moon size={20} className="text-slate-700" />
+        <Moon className="w-5 h-5 text-primary" />
       )}
     </button>
   );
