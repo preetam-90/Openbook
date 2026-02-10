@@ -45,7 +45,7 @@ This period marked the golden age of Bihar, with the establishment of great univ
     slug: 'golden-age',
     section: 'Ancient & Medieval Era',
     order: 2,
-    image: 'https://images.unsplash.com/photo-1507842217343-583f7270b69f?w=800&h=600&fit=crop',
+    image: '/images/nalanda-university.jpg',
     content: `# The Golden Age of Learning
 
 ## Nalanda University
@@ -71,7 +71,7 @@ The university was destroyed in the 12th century but its influence on education 
     slug: 'medieval-sultanates',
     section: 'Medieval Period',
     order: 3,
-    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
+    image: '/images/mughal-era.jpg',
     content: `# Medieval Sultanates of Bihar
 
 ## The Delhi Sultanate Era
