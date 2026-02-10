@@ -1,0 +1,9 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ganga basin map">
+  <rect width="1200" height="700" fill="#e4eef7"/>
+  <path d="M0 330 C160 270, 250 380, 430 320 C590 270, 740 380, 910 340 C1020 310, 1090 360, 1200 330" stroke="#4d86d9" stroke-width="44" fill="none" stroke-linecap="round"/>
+  <path d="M180 430 C250 380, 340 420, 400 390" stroke="#5ea4ef" stroke-width="20" fill="none"/>
+  <path d="M680 450 C760 380, 890 420, 980 390" stroke="#5ea4ef" stroke-width="20" fill="none"/>
+  <circle cx="420" cy="320" r="16" fill="#1f4f9d"/>
+  <circle cx="900" cy="340" r="16" fill="#1f4f9d"/>
+  <text x="600" y="120" text-anchor="middle" font-size="56" fill="#2f4d77" font-family="serif">Ganga Basin & Bihar</text>
+</svg>

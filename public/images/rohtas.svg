@@ -1,0 +1,9 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Rohtas Fort">
+  <rect width="1200" height="700" fill="#dce7ee"/>
+  <path d="M0 520 L250 380 L500 470 L820 320 L1200 460 L1200 700 L0 700 Z" fill="#6f7f77"/>
+  <rect x="180" y="260" width="860" height="280" fill="#8a6d52"/>
+  <rect x="520" y="170" width="170" height="370" fill="#72563f"/>
+  <rect x="255" y="320" width="100" height="220" fill="#6a503b"/>
+  <rect x="845" y="320" width="100" height="220" fill="#6a503b"/>
+  <text x="600" y="120" text-anchor="middle" font-size="58" fill="#3e3228" font-family="serif">Rohtas Region</text>
+</svg>

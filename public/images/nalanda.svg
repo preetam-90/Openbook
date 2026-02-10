@@ -1,0 +1,10 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Nalanda ruins">
+  <rect width="1200" height="700" fill="#e8dcc4"/>
+  <rect y="520" width="1200" height="180" fill="#c59f67"/>
+  <rect x="160" y="280" width="880" height="260" fill="#b36f3b"/>
+  <rect x="220" y="340" width="130" height="200" fill="#8f4f27"/>
+  <rect x="430" y="360" width="150" height="180" fill="#8f4f27"/>
+  <rect x="680" y="330" width="150" height="210" fill="#8f4f27"/>
+  <rect x="920" y="350" width="70" height="190" fill="#8f4f27"/>
+  <text x="600" y="130" text-anchor="middle" font-size="64" fill="#6b3d1e" font-family="serif">Nalanda</text>
+</svg>
