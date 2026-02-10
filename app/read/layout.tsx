@@ -1,16 +1,13 @@
-import { Sidebar } from '@/components/sidebar'
+'use client';
 
 export default function ReadLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <div className="flex h-screen">
-      <Sidebar />
-      <main className="flex-1 overflow-auto">
-        {children}
-      </main>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 dark:from-slate-950 dark:via-blue-950 dark:to-purple-950">
+      {children}
     </div>
-  )
+  );
 }

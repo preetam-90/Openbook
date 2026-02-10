@@ -1,89 +1,212 @@
-import { BookOpen, BookMarked, Zap } from 'lucide-react'
+'use client'
+
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Header } from '@/components/header'
-import { TableOfContents } from '@/components/table-of-contents'
-import { WelcomeHero } from '@/components/welcome-hero'
+import { motion } from 'framer-motion'
+import { ChevronRight, BookOpen, Search } from 'lucide-react'
+import { ThemeToggle } from '@/components/theme-toggle'
+import { ProgressBar } from '@/components/progress-bar'
+import { useProgress } from '@/hooks/use-progress'
+
+interface Chapter {
+  id: string
+  title: string
+  order: number
+}
 
 export default function Home() {
+  const [searchTerm, setSearchTerm] = useState('')
+  const [chapters, setChapters] = useState<Chapter[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const { progress, bookmarks, mounted } = useProgress()
+
+  useEffect(() => {
+    const fetchChapters = async () => {
+      try {
+        const response = await fetch('/api/chapters')
+        const data = await response.json()
+        setChapters(data)
+      } catch (error) {
+        console.error('Failed to fetch chapters:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchChapters()
+  }, [])
+
+  const filteredChapters = chapters.filter((chapter) =>
+    chapter.title.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3,
+      },
+    },
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: 'easeOut',
+      },
+    },
+  }
+
   return (
-    <main className="min-h-screen">
-      <Header />
-      <WelcomeHero />
-      
-      {/* Features Section */}
-      <section className="py-20 px-4 md:px-8 max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent mb-4">
-            Explore Bihar's Rich Heritage
-          </h2>
-          <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-            Dive into centuries of history, culture, and transformation through interactive chapters and immersive design.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6 mb-12">
-          {[
-            {
-              icon: BookOpen,
-              title: 'Interactive Chapters',
-              description: 'Seamlessly navigate through carefully crafted chapters with smooth page transitions.'
-            },
-            {
-              icon: BookMarked,
-              title: 'Rich Content',
-              description: 'Explore historical facts, images, timelines, and detailed narratives about Bihar.'
-            },
-            {
-              icon: Zap,
-              title: 'Modern Interface',
-              description: 'Experience a beautiful claymorphism design with dark mode support and responsive layout.'
-            }
-          ].map((feature, i) => {
-            const Icon = feature.icon
-            return (
-              <div key={i} className="claymorphic p-8 hover:shadow-2xl transition-smooth">
-                <Icon className="w-12 h-12 text-blue-600 dark:text-blue-400 mb-4" />
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-slate-600 dark:text-slate-400">
-                  {feature.description}
-                </p>
-              </div>
-            )
-          })}
-        </div>
-      </section>
-
-      {/* Table of Contents Preview */}
-      <section className="py-20 px-4 md:px-8 max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
-            Table of Contents
-          </h2>
-          <p className="text-lg text-slate-600 dark:text-slate-400">
-            Select a chapter to begin your journey through Bihar's history
-          </p>
-        </div>
-        <TableOfContents />
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 px-4 md:px-8 max-w-4xl mx-auto text-center mb-12">
-        <div className="glass-effect p-12 rounded-3xl">
-          <h3 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
-            Ready to Explore?
-          </h3>
-          <p className="text-lg text-slate-600 dark:text-slate-400 mb-8">
-            Start with the first chapter or jump to any section that interests you. The book adapts to your reading preference.
-          </p>
-          <Link
-            href="/read/chapter-1"
-            className="inline-block px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-full hover:shadow-xl transition-smooth hover:scale-105"
+    <main className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
+      {/* Header */}
+      <header className="sticky top-0 z-50 backdrop-blur-md bg-background/80 border-b border-muted">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
+          <motion.div
+            className="flex items-center gap-3"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
           >
-            Start Reading
-          </Link>
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg">
+              <BookOpen className="w-6 h-6 text-primary-foreground" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold font-serif text-foreground">OpenBook</h1>
+              <p className="text-xs text-muted-foreground">Bihar History 1500-2026</p>
+            </div>
+          </motion.div>
+          <ThemeToggle />
         </div>
+      </header>
+
+      {/* Hero Section */}
+      <section className="max-w-7xl mx-auto px-4 md:px-6 py-12 md:py-24">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="text-5xl md:text-6xl font-bold font-serif mb-6 text-foreground">
+            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              Bihar Through the Ages
+            </span>
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+            Discover the rich and complex history of Bihar spanning over 500 years—from medieval kingdoms to modern aspirations. An interactive journey through time.
+          </p>
+
+          {/* Search Bar */}
+          <div className="relative max-w-xl mx-auto">
+            <div className="clay-card border-primary/20">
+              <div className="flex items-center gap-3">
+                <Search className="w-5 h-5 text-muted-foreground" />
+                <input
+                  type="text"
+                  placeholder="Search chapters..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="flex-1 bg-transparent border-0 outline-none text-foreground placeholder-muted-foreground"
+                />
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Progress Bar */}
+        {mounted && (
+          <motion.div
+            className="max-w-2xl mx-auto mb-12 clay-card"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            <ProgressBar progress={progress} bookmarksCount={bookmarks.length} />
+          </motion.div>
+        )}
+
+        {/* Chapters Grid */}
+        {isLoading ? (
+          <div className="flex items-center justify-center py-24">
+            <div className="animate-spin">
+              <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full" />
+            </div>
+          </div>
+        ) : (
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            {filteredChapters.length > 0 ? (
+              filteredChapters.map((chapter) => (
+                <motion.div key={chapter.id} variants={itemVariants}>
+                  <Link href={`/chapter/${chapter.id}`}>
+                    <div className="group clay-card hover:shadow-xl transition-all duration-300 cursor-pointer h-full flex flex-col">
+                      {/* Chapter Number Badge */}
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-semibold">
+                          Chapter {chapter.order + 1}
+                        </span>
+                        {mounted && bookmarks.includes(chapter.id) && (
+                          <span className="text-accent text-lg">📌</span>
+                        )}
+                      </div>
+
+                      {/* Title */}
+                      <h3 className="text-xl font-bold font-serif text-foreground mb-3 group-hover:text-primary transition-colors line-clamp-2">
+                        {chapter.title}
+                      </h3>
+
+                      {/* Footer */}
+                      <div className="flex items-center gap-2 text-primary font-semibold text-sm group-hover:gap-3 transition-all mt-auto">
+                        <span>Read More</span>
+                        <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))
+            ) : (
+              <div className="col-span-full text-center py-24">
+                <BookOpen className="w-16 h-16 text-muted mx-auto mb-4 opacity-30" />
+                <p className="text-muted-foreground text-lg">No chapters found matching "{searchTerm}"</p>
+              </div>
+            )}
+          </motion.div>
+        )}
+      </section>
+
+      {/* Stats Section */}
+      <section className="max-w-7xl mx-auto px-4 md:px-6 py-16 border-t border-muted">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-3 gap-6"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
+          <div className="clay-card text-center">
+            <div className="text-4xl font-bold text-primary mb-2">500+</div>
+            <p className="text-muted-foreground">Years of History</p>
+          </div>
+          <div className="clay-card text-center">
+            <div className="text-4xl font-bold text-secondary mb-2">{chapters.length}</div>
+            <p className="text-muted-foreground">Chapters</p>
+          </div>
+          <div className="clay-card text-center">
+            <div className="text-4xl font-bold text-accent mb-2">∞</div>
+            <p className="text-muted-foreground">Knowledge</p>
+          </div>
+        </motion.div>
       </section>
     </main>
   )
